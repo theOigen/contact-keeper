@@ -1,11 +1,11 @@
 const express = require('express');
-const { PORT } = require('./config');
+const connectDB = require('./config/db');
+const { PORT } = require('./config/server');
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.json({ msg: 'Hello from the server' });
-});
+// Connect db
+connectDB();
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/contacts', require('./routes/contacts'));
