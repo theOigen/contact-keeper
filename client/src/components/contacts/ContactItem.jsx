@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Badge, ListGroup, Button } from 'react-bootstrap';
+import { Card, Badge, Button } from 'react-bootstrap';
 
 const ContactItem = ({ contact }) => {
   const { name, email, phone, type } = contact;
@@ -17,18 +17,18 @@ const ContactItem = ({ contact }) => {
             {type.charAt(0).toUpperCase() + type.slice(1)}
           </Badge>
         </Card.Title>
-        <ListGroup variant='flush'>
+        <ul className='list'>
           {email && (
-            <ListGroup.Item className='no-border pt-2 pb-2'>
+            <li>
               <i className='fas fa-envelope-open' /> {email}
-            </ListGroup.Item>
+            </li>
           )}
           {phone && (
-            <ListGroup.Item className='no-border pt-2 pb-2'>
+            <li>
               <i className='fas fa-phone' /> {phone}
-            </ListGroup.Item>
+            </li>
           )}
-        </ListGroup>
+        </ul>
         <div className='d-flex justify-content-between'>
           <Button variant='dark' size='sm'>
             Edit

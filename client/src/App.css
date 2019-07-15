@@ -8,6 +8,16 @@ body {
   color: #333;
 }
 
-.no-border {
-  border: 0;
+ul {
+  list-style: none;
+}
+
+/* List */
+.list {
+  margin: 0.5rem 0;
+  padding-inline-start: 0;
+}
+
+.list li {
+  padding-bottom: 0.3rem;
 }
