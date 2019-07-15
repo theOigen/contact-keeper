@@ -14,7 +14,7 @@ const App = () => {
       <Router>
         <>
           <Navbar />
-          <Container>
+          <Container className='mt-2'>
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/about' component={About} />
