@@ -1,9 +1,19 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import ContactContext from '../../context/contact/contactContext';
 
 const ContactForm = () => {
   const contactContext = useContext(ContactContext);
+
+  const { addContact, updateContact, clearCurrent, current } = contactContext;
+
+  useEffect(() => {
+    if (current) {
+      setContact(current);
+    } else {
+      setContact({ name: '', email: '', phone: '', type: 'personal' });
+    }
+  }, [current]);
 
   const [contact, setContact] = useState({
     name: '',
@@ -12,6 +22,8 @@ const ContactForm = () => {
     type: 'personal'
   });
 
+  const { name, email, phone, type } = contact;
+
   const onChange = e => {
     setContact({
       ...contact,
@@ -19,17 +31,27 @@ const ContactForm = () => {
     });
   };
 
-  const onSubmit = e => {
-    e.preventDefault();
-    contactContext.addContact(contact);
-    setContact({ name: '', email: '', phone: '', type: 'personal' });
+  const clearAll = () => {
+    clearCurrent();
   };
 
-  const { name, email, phone, type } = contact;
+  const onSubmit = e => {
+    e.preventDefault();
+    if (name && email && phone && type) {
+      if (current) {
+        updateContact(contact);
+      } else {
+        addContact(contact);
+      }
+      clearAll();
+    }
+  };
 
   return (
     <Form onSubmit={onSubmit}>
-      <h2 className='text-center'>Add contact</h2>
+      <h2 className='text-center'>
+        {current ? 'Edit Contact' : 'Add Contact'}
+      </h2>
       <Form.Control
         type='text'
         placeholder='Name'
@@ -78,8 +100,17 @@ const ContactForm = () => {
         type='submit'
         className='btn-block mt-3'
       >
-        Add Contact
+        {current ? 'Update Contact' : 'Add Contact'}
       </Button>
+      {current && (
+        <Button
+          variant='outline-dark'
+          className='btn-block mt-3'
+          onClick={clearAll}
+        >
+          Clear
+        </Button>
+      )}
     </Form>
   );
 };

@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Badge, Button, Row, Container } from 'react-bootstrap';
+import ContactContext from '../../context/contact/contactContext';
 
 const ContactItem = ({ contact }) => {
-  const { name, email, phone, type } = contact;
+  const contactContext = useContext(ContactContext);
+  const { deleteContact, setCurrent, clearCurrent, current } = contactContext;
+
+  const { id, name, email, phone, type } = contact;
+
+  const onDelete = () => {
+    deleteContact(id);
+    if (current && current.id === id) clearCurrent();
+  };
 
   return (
     <Card className='mt-1' bg='light'>
@@ -31,10 +40,15 @@ const ContactItem = ({ contact }) => {
         </ul>
         <Container>
           <Row>
-            <Button variant='dark' size='sm' className='mr-2'>
+            <Button
+              variant='dark'
+              size='sm'
+              className='mr-2'
+              onClick={() => setCurrent(contact)}
+            >
               Edit
             </Button>
-            <Button variant='danger' size='sm'>
+            <Button variant='danger' size='sm' onClick={onDelete}>
               Delete
             </Button>
           </Row>
