@@ -1,9 +1,27 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import AuthContext from '../../context/auth/authContext';
 import AlertContext from '../../context/alert/alertContext';
 
-const Login = () => {
+const Login = props => {
+  const authContext = useContext(AuthContext);
+  const alertContext = useContext(AlertContext);
+
+  const { setAlert } = alertContext;
+  const { login, error, clearErrors, isAuthenticated } = authContext;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+
+    if (error === 'Invalid credentials') {
+      setAlert(error, 'danger');
+      clearErrors();
+    }
+    // eslint-disable-next-line
+  }, [error, isAuthenticated, props.history]);
+
   const [user, setUser] = useState({
     email: '',
     password: ''
@@ -20,7 +38,11 @@ const Login = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log('Login submit');
+    if (email === '' || password === '') {
+      setAlert('Please enter all fields', 'danger');
+    } else {
+      login(user);
+    }
   };
 
   return (
@@ -36,7 +58,6 @@ const Login = () => {
             placeholder='Enter an email'
             value={email}
             onChange={onChange}
-            controlId='emailValidation'
           />
         </Form.Group>
         <Form.Group>
@@ -48,7 +69,6 @@ const Login = () => {
             placeholder='Enter a password'
             value={password}
             onChange={onChange}
-            controlId='passwordValidation'
           />
         </Form.Group>
         <Button type='submit' variant='primary' className='btn-block'>

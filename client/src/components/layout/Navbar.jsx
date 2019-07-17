@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
-const NavBar = ({ title, icon }) => {
+const NavBar = props => {
+  const { title, icon } = props;
+
   return (
     <Navbar bg='primary' variant='dark' expand='md' sticky='top'>
       <Navbar.Brand>

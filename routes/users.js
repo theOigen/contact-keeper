@@ -28,13 +28,16 @@ router.post(
       return res.status(400).json({ errors });
     }
 
-    const { name, email, password } = req.body;
+    const { name, email, password, password_2 } = req.body;
 
     try {
       let user = await User.findOne({ email });
 
       if (user) {
         return res.status(400).json({ msg: 'User already exists' });
+      }
+      if (password !== password_2) {
+        return res.status(400).json({ msg: 'Passwords do not match' });
       }
 
       user = new User({ name, email, password });

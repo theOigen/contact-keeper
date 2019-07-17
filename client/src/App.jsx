@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
+import Main from './components/pages/Main';
 import About from './components/pages/About';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
@@ -11,8 +12,12 @@ import Alerts from './components/layout/Alerts';
 import ContactState from './context/contact/ContactState';
 import AuthState from './context/auth/AuthState';
 import AlertState from './context/alert/AlertState';
-
+import setAuthToken from './utils/setAuthToken';
 import './App.css';
+
+if (localStorage.jwt) {
+  setAuthToken(localStorage.jwt);
+}
 
 const App = () => {
   return (
@@ -20,7 +25,7 @@ const App = () => {
       <ContactState>
         <AlertState>
           <Router>
-            <>
+            <Main>
               <Navbar />
               <Container className='mt-2'>
                 <Alerts />
@@ -31,7 +36,7 @@ const App = () => {
                   <Route exact path='/login' component={Login} />
                 </Switch>
               </Container>
-            </>
+            </Main>
           </Router>
         </AlertState>
       </ContactState>
