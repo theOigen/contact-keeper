@@ -4,12 +4,10 @@ import AuthContext from '../../context/auth/authContext';
 const Main = props => {
   const authContext = useContext(AuthContext);
 
-  const { loadUser, token } = authContext;
+  const { loadUser } = authContext;
 
   useEffect(() => {
-    if (token) {
-      loadUser();
-    }
+    loadUser();
     // eslint-disable-next-line
   }, []);
 
