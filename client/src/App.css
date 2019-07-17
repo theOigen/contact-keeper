@@ -12,6 +12,12 @@ ul {
   list-style: none;
 }
 
+.form-container {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* List */
 .list {
   margin: 0.5rem 0;

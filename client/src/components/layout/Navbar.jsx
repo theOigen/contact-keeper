@@ -19,6 +19,12 @@ const NavBar = ({ title, icon }) => {
           <Nav.Link as={Link} to='/about' eventKey='about'>
             About
           </Nav.Link>
+          <Nav.Link as={Link} to='/register' eventKey='register'>
+            Register
+          </Nav.Link>
+          <Nav.Link as={Link} to='/login' eventKey='login'>
+            Login
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
