@@ -45,3 +45,15 @@ ul {
   opacity: 0;
   transition: opacity 1000ms ease-in;
 }
+
+@media (max-width: 767px) {
+  .sm-mt-1 {
+    margin-top: 0.25rem;
+  }
+  .sm-mt-2 {
+    margin-top: 0.5rem;
+  }
+  .sm-mt-3 {
+    margin-top: 1rem;
+  }
+}

@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
-const Register = props => {
+const Register = () => {
   const authContext = useContext(AuthContext);
   const alertContext = useContext(AlertContext);
 
@@ -11,16 +12,12 @@ const Register = props => {
   const { register, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
-    if (isAuthenticated) {
-      props.history.push('/');
-    }
-
     if (error === 'User already exists') {
       setAlert(error, 'danger');
       clearErrors();
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, props.history]);
+  }, [error, isAuthenticated]);
 
   const [user, setUser] = useState({
     name: '',
@@ -48,6 +45,8 @@ const Register = props => {
       register(user);
     }
   };
+
+  if (isAuthenticated) return <Redirect to='/' />;
 
   return (
     <div className='form-container'>

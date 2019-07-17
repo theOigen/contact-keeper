@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
 import AlertContext from '../../context/alert/alertContext';
 
-const Login = props => {
+const Login = () => {
   const authContext = useContext(AuthContext);
   const alertContext = useContext(AlertContext);
 
@@ -11,16 +12,12 @@ const Login = props => {
   const { login, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
-    if (isAuthenticated) {
-      props.history.push('/');
-    }
-
     if (error === 'Invalid credentials') {
       setAlert(error, 'danger');
       clearErrors();
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, props.history]);
+  }, [error, isAuthenticated]);
 
   const [user, setUser] = useState({
     email: '',
@@ -44,6 +41,8 @@ const Login = props => {
       login(user);
     }
   };
+
+  if (isAuthenticated) return <Redirect to='/' />;
 
   return (
     <div className='form-container'>

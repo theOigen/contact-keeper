@@ -23,7 +23,7 @@ const ContactFilter = () => {
   };
 
   return (
-    <Form>
+    <Form className='sm-mt-1'>
       <Form.Control
         ref={text}
         type='text'

@@ -8,10 +8,10 @@ const Home = () => {
   return (
     <>
       <Row>
-        <Col>
+        <Col md={6}>
           <ContactForm />
         </Col>
-        <Col>
+        <Col md={6}>
           <ContactFilter />
           <Contacts />
         </Col>
