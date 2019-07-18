@@ -1,39 +1,59 @@
 import {
+  GET_CONTACTS,
+  CLEAR_CONTACTS,
   ADD_CONTACT,
   DELETE_CONTACT,
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_CONTACT,
   FILTER_CONTACTS,
-  CLEAR_FILTER
+  CLEAR_FILTER,
+  CONTACT_ERROR
 } from '../types';
 
 export default (state, { type, payload }) => {
   switch (type) {
+    case GET_CONTACTS:
+      return {
+        ...state,
+        contacts: payload,
+        loading: false
+      };
     case ADD_CONTACT:
       return {
         ...state,
-        contacts: [...state.contacts, payload]
+        contacts: [payload, ...state.contacts],
+        loading: false
       };
     case UPDATE_CONTACT:
       return {
         ...state,
         contacts: state.contacts.map(contact =>
-          contact.id === payload.id ? payload : contact
+          contact._id === payload._id ? payload : contact
         ),
         filtered: state.filtered
           ? state.filtered.map(contact =>
-              contact.id === payload.id ? payload : contact
+              contact._id === payload._id ? payload : contact
             )
-          : null
+          : null,
+        loading: false
       };
     case DELETE_CONTACT:
       return {
         ...state,
-        contacts: state.contacts.filter(contact => contact.id !== payload),
+        contacts: state.contacts.filter(contact => contact._id !== payload),
         filtered: state.filtered
-          ? state.filtered.filter(contact => contact.id !== payload)
-          : null
+          ? state.filtered.filter(contact => contact._id !== payload)
+          : null,
+        loading: false
+      };
+    case CLEAR_CONTACTS:
+      return {
+        ...state,
+        contacts: null,
+        filtered: null,
+        error: null,
+        current: null
       };
     case SET_CURRENT:
       return {
@@ -58,6 +78,12 @@ export default (state, { type, payload }) => {
         ...state,
         filtered: null
       };
+    case CONTACT_ERROR: {
+      return {
+        ...state,
+        error: payload
+      };
+    }
     default:
       return state;
   }

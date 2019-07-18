@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import AuthContext from '../../context/auth/authContext';
+import ContactContext from '../../context/contact/contactContext';
 
 const NavBar = props => {
   const { title, icon } = props;
   const authContext = useContext(AuthContext);
+  const contactContext = useContext(ContactContext);
 
   const { isAuthenticated, logout, user } = authContext;
+  const { clearContacts } = contactContext;
 
   const onLogout = () => {
     logout();
+    clearContacts();
   };
 
   const authLinks = (
@@ -48,7 +52,10 @@ const NavBar = props => {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <Navbar.Collapse id='basic-navbar-nav'>
-        <Nav className='ml-auto md-flex-column' defaultActiveKey='home'>
+        <Nav
+          className='ml-auto md-flex-column'
+          defaultActiveKey={isAuthenticated ? 'home' : 'login'}
+        >
           {isAuthenticated ? authLinks : guestLinks}
         </Nav>
       </Navbar.Collapse>

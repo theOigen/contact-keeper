@@ -35,13 +35,14 @@ const ContactForm = () => {
     clearCurrent();
   };
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
     if (name && email && phone && type) {
       if (current) {
         updateContact(contact);
       } else {
-        addContact(contact);
+        await addContact(contact);
+        setContact({ name: '', email: '', phone: '', type: 'personal' });
       }
       clearAll();
     }

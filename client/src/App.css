@@ -34,7 +34,7 @@ ul {
 
 .item-enter-active {
   opacity: 1;
-  transition: opacity 1000ms ease-in;
+  transition: opacity 500ms ease-in;
 }
 
 .item-exit {
@@ -43,7 +43,7 @@ ul {
 
 .item-exit-active {
   opacity: 0;
-  transition: opacity 1000ms ease-in;
+  transition: opacity 500ms ease-in;
 }
 
 @media (max-width: 767px) {
@@ -56,4 +56,11 @@ ul {
   .sm-mt-3 {
     margin-top: 1rem;
   }
+}
+
+.spinner-container {
+  height: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
